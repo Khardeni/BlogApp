@@ -6,7 +6,7 @@
       <div class="container">
         <h3>Latest Posts</h3>
         <div class="blog-cards">
-          <blogCards :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+          <blogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
 
         </div>
       </div>
@@ -26,12 +26,13 @@
 
 <script>
 import BlogPost from '../components/BlogPost.vue';
-import BlogCards from '../components/BlogCard.vue';
+import BlogCard from '../components/BlogCard.vue';
 import Arrow from "../assets/Icons/arrow-right-light.svg";
+
 
 export default {
   name: "Home",
-  components: { BlogPost, BlogCards, Arrow },
+  components: { BlogPost, BlogCard, Arrow },
   data() {
     return {
       welcomeScreen: {
@@ -53,14 +54,14 @@ export default {
         },
 
       ],
-      sampleBlogCards: [
-        { blogTitle: "blog card 1", blogCoverPhoto: "stock-1", blogDate: "May 1, 2025" },
-        { blogTitle: "blog card 2", blogCoverPhoto: "stock-2", blogDate: "May 1, 2025" },
-        { blogTitle: "blog card 3", blogCoverPhoto: "stock-3", blogDate: "May 1, 2025" },
-        { blogTitle: "blog card 4", blogCoverPhoto: "stock-4", blogDate: "May 1, 2025" },
-      ],
+      
     };
   },
+  computed:{
+    sampleBlogCards() {
+      return this.$store.state.sampleBlogCards;
+    }
+  }
 };
 </script>
 
@@ -98,7 +99,7 @@ export default {
     }
     h2{
       font-weight: 300;
-      font-size: 12px;
+      font-size: 32px;
       max-width: 425px;
       width: 100%;
       text-align: center;

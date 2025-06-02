@@ -1,6 +1,6 @@
 <template>
     <div class="blog-card">
-        <div class="icons">
+        <div v-show="editPost" class="icons">
             <div class="icon">
                 <Edit class="edit" />
             </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+
 import Arrow from "../assets/Icons/arrow-right-light.svg";
 import Edit from "../assets/Icons/edit-regular.svg";
 import Trash from "../assets/Icons/trash-regular.svg";
@@ -34,6 +35,11 @@ export default {
     components: { Arrow, Edit, Trash },
     data() {
         return {};
+    },
+    computed: {
+        editPost() {
+            return this.$store.state.editPost;
+        }
     },
 
 };
@@ -124,7 +130,7 @@ export default {
         h6 {
             font-size: 12px;
             font-weight: 400;
-            margin-bottom: 16px;
+            padding-bottom: 16px;
             color: #666;
         }
 
