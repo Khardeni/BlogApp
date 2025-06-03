@@ -1,4 +1,4 @@
-# fireblogs
+# blogs App
 
 ## Project setup
 ```
