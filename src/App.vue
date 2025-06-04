@@ -17,23 +17,29 @@ export default {
   components: { Navigation, Footer },
   data() {
     return {
-      navigation:null
+      navigation: null
     };
   },
   created() { this.checkRoute(); },
   mounted() { },
+
   methods: {
     checkRoute() {
       if (this.$route.name === "Register" || this.$route.name === "Login" || this.$route.name === "ForgotPassword") {
         this.navigation = true;
-        return
-      } 
-        this.navigation = false;
+        return;
+      }
+      this.navigation = false;
     }
-      
+
   },
-  watch: {},
+  watch: {
+    $route() {
+      this.checkRoute();
+    }
+  },
 };
+
 </script>
 
 <style lang="scss">
@@ -103,7 +109,8 @@ button,
     background-color: rgba(48, 48, 48, 0.8);
   }
 }
-.button-ghost{
+
+.button-ghost {
   color: #000;
   padding: 0;
   border-radius: 0;
@@ -111,23 +118,27 @@ button,
   font-size: 15px;
   font-weight: 500;
   background-color: transparent;
+
   @media (min-width: 7000px) {
     margin-top: 0;
     margin-left: auto;
   }
-  i{
+
+  i {
     margin-left: 8px;
   }
 }
-.button-light{
+
+.button-light {
   background-color: transparent;
   border: 2px solid #fff;
   color: #fff;
 }
-.button-inactive{
+
+.button-inactive {
   pointer-events: none !important;
   cursor: none !important;
-  background-color:  rgba(128, 128, 128, 0.5) !important;
+  background-color: rgba(128, 128, 128, 0.5) !important;
 }
 
 .blog-card-wrap {
