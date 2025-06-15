@@ -16,10 +16,11 @@
                     <password class="icon" />
                 </div>
             </div>
+            <div v-show="error" class="error">{{ this.errorMessage }}</div>
             <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">
                 Forgot Password?
             </router-link>
-            <button> Sign In </button>
+            <button @click.prevent="signIn"> Sign In </button>
             <div class="angle"></div>
         </form>
         <div class="background"></div>
@@ -29,7 +30,8 @@
 <script>
 import email from '../assets/Icons/envelope-regular.svg';
 import password from '../assets/Icons/lock-alt-solid.svg';
-
+import firebase from 'firebase/app';
+import 'firebase/auth';
 export default {
     name: 'Login',
     components: {
@@ -39,8 +41,27 @@ export default {
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            error: null,
+            errorMessage: '',
         };
+    },
+    methods: {
+        signIn() {
+            firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+                .then(() => {
+                    this.$router.push({ name: 'Home' });
+                    this.error = false;
+                    this.errorMessage = '';
+                    console.log(firebase.auth().currentUser.uid);
+                    
+                }).catch((err) => {
+                    this.error = true;
+                    this.errorMessage = err.message;
+                    
+                });
+        }
+    
     },
 }
 </script>
@@ -56,7 +77,7 @@ export default {
     width: 90%;
 
     @media (min-width: 900px) {
-         width: 100%;
+        width: 100%;
         margin: 0;
         justify-content: flex-start;
         align-items: stretch;

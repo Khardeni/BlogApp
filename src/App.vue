@@ -12,6 +12,8 @@
 <script>
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import firebase from "firebase/app";
+import "firebase/auth";
 export default {
   name: "app",
   components: { Navigation, Footer },
@@ -20,7 +22,9 @@ export default {
       navigation: null
     };
   },
-  created() { this.checkRoute(); },
+  created() { this.checkRoute(); 
+    console.log(firebase.auth().currentUser);
+  },
   mounted() { },
 
   methods: {
@@ -141,6 +145,7 @@ button,
   background-color: rgba(128, 128, 128, 0.5) !important;
 }
 
+
 .blog-card-wrap {
   position: relative;
   padding: 80px 16px;
@@ -167,5 +172,11 @@ button,
       grid-template-columns: repeat(4, 1fr);
     }
   }
+}
+
+.error{
+  text-align: center;
+  font-size: 18px;
+  color: #ff0000;
 }
 </style>
