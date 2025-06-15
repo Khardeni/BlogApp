@@ -22,8 +22,16 @@ export default {
       navigation: null
     };
   },
-  created() { this.checkRoute(); 
-    console.log(firebase.auth().currentUser);
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.$store.commit("UpdateUser", user);
+      if (user) {
+
+        this.$store.dispatch("getCurrentUser");
+      }
+    })
+
+    this.checkRoute();
   },
   mounted() { },
 
@@ -174,7 +182,7 @@ button,
   }
 }
 
-.error{
+.error {
   text-align: center;
   font-size: 18px;
   color: #ff0000;

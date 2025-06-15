@@ -36,10 +36,10 @@
                             <router-link class="link" :to="{ name: 'blogs' }">Blogs</router-link>
                         </li>
                         <li>
-                            <router-link v-if="user" class="link" :to="{ name: 'newpost' }">Create Post</router-link>
+                            <router-link  class="link" :to="{ name: 'newpost' }">Create Post</router-link>
                         </li>
                         <li>
-                            <router-link v-if="!user" class="link" :to="{ name: 'Login' }">Login/Register</router-link>
+                            <router-link  class="link" :to="{ name: 'Login' }">Login/Register</router-link>
                         </li>
                     </ul>
                 </div>
