@@ -28,6 +28,8 @@ export default {
       if (user) {
 
         this.$store.dispatch("getCurrentUser");
+        console.log("User is logged in:", this.$store.state.profileUsername);
+        
       }
     })
 

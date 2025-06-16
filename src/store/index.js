@@ -33,26 +33,36 @@ export default new Vuex.Store({
     UpdateUser(state, payload) {
       state.user = payload;
     },
-    setUser(state, doc) {
-      state.profileId = doc.id;
-      state.profileEmail = doc.data().email;
-      state.profileFirstName = doc.data().firstName;
-      state.profileLastName = doc.data().lastName;
-      state.profileUsername = doc.data().userName;
+    setUser(state, data) {
+      state.profileId = data.id;
+      state.profileEmail = data.email;
+      state.profileFirstName = data.firstName;
+      state.profileLastName = data.lastName;
+      state.profileUsername = data.userName;
+    
+      
     },
     setProfileInitials(state) {
       state.profileinitials =
-      state.profileFirstName.match(/(\b\S)?/g).join('') + state.profileLastName.match(/(\b\S)?/g).join('');
+        state.profileFirstName.match(/(\b\S)?/g).join('') + state.profileLastName.match(/(\b\S)?/g).join('');
+        console.log("Profile initials set to:", state.profileinitials);
 
-    }
+    },
   },
   actions: {
-    getCurrentUser({ commit }) {
+    async getCurrentUser({ commit }) {
       const dataBase = db.collection("users").doc(firebase.auth().currentUser.uid);
-      const dbResult = dataBase.get();
-      commit('setUser', dbResult);
-      commit('setProfileInitials');
-      console.log(dbResult);
+      const doc = await dataBase.get();
+      if (doc.exists) {
+        const data = { ...doc.data(), id: doc.id };
+        commit('setUser', data);
+        commit('setProfileInitials');
+        
+        console.log("User data fetched successfully:", data);
+        
+      } else {
+        console.error("No such document!");
+      }
     }
   },
   modules: {
