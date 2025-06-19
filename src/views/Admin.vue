@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: 'Profile',
+    name: 'Admin',
 }
     
 </script>

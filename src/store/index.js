@@ -48,6 +48,16 @@ export default new Vuex.Store({
         console.log("Profile initials set to:", state.profileinitials);
 
     },
+    setProfileFirstName(state, payload) {
+      state.profileFirstName = payload;
+    },
+    setProfileLastName(state, payload) {
+      state.profileLastName = payload;
+    },
+
+    setProfileUsername(state, payload) {
+      state.profileUsername = payload;
+    }
   },
   actions: {
     async getCurrentUser({ commit }) {
@@ -63,6 +73,16 @@ export default new Vuex.Store({
       } else {
         console.error("No such document!");
       }
+    },
+    async updateProfile({commit , state}){
+      const dataBase = db.collection("users").doc(state.profileId);
+      await dataBase.update({
+        firstName: state.profileFirstName,
+        lastName: state.profileLastName,
+        userName: state.profileUsername
+      });
+      commit('setProfileInitials');
+
     }
   },
   modules: {

@@ -1,34 +1,34 @@
 <template>
-    <div class="profile">
-        <Modal v-if="modalActive" :modalMessage="modalMessage" v-on:close-modal="closeModal" />
-        <div class="container">
-            <h2>Account Settings</h2>
-            <div class="profile-info">
-                <div class="initials">{{ $store.state.profileinitials }}</div>
-                <div class="admin-badge">
-                    <adminIcon class="icon" />
-                    <span>admin</span>
-                </div>
-                <div class="input">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" v-model="firstName" />
-                </div>
-                <div class="input">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" v-model="lastName" />
-                </div>
-                <div class="input">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" v-model="username" />
-                </div>
-                <div class="input">
-                    <label for="email">Email:</label>
-                    <input disabled type="text" id="email" v-model="email" />
-                </div>
-                <button @click="updateProfile">Save Changes</button>
-            </div>
+  <div class="profile">
+    <Modal v-if="modalActive" :modalMessage="modalMessage" v-on:close-modal="closeModal" />
+    <div class="container">
+      <h2>Account Settings</h2>
+      <div class="profile-info">
+        <div class="initials">{{ $store.state.profileinitials }}</div>
+        <div class="admin-badge">
+          <adminIcon class="icon" />
+          <span>admin</span>
         </div>
+        <div class="input">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" v-model="firstName" />
+        </div>
+        <div class="input">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" v-model="lastName" />
+        </div>
+        <div class="input">
+          <label for="username">Username:</label>
+          <input type="text" id="username" v-model="username" />
+        </div>
+        <div class="input">
+          <label for="email">Email:</label>
+          <input disabled type="text" id="email" v-model="email" />
+        </div>
+        <button @click="updateProfile">Save Changes</button>
+      </div>
     </div>
+  </div>
 </template>
 
 
@@ -37,19 +37,57 @@ import adminIcon from '../assets/Icons/user-crown-light.svg';
 import Modal from '../components/Modal.vue';
 
 export default {
-
-    data() {
-        return {
-            modalActive: null,
-            modalMessage: 'Changes saved successfully!',
-        };
+  name: 'Profile',
+  components: {
+    adminIcon,
+    Modal,
+  },
+  data() {
+    return {
+      modalActive: null,
+      modalMessage: 'Changes saved successfully!',
+    };
+  },
+  methods: {
+    updateProfile() {
+      this.$store.dispatch('updateProfile');
+      this.modalActive = !this.modalActive;
     },
-    name: 'Admin',
-    components: {
-        adminIcon,
-        Modal,
-        
-},
+    closeModal() {
+      this.modalActive = !this.modalActive;
+    }
+  },
+  computed: {
+    firstName: {
+      get() {
+        return this.$store.state.profileFirstName;
+      },
+      set(payload) {
+        this.$store.commit('setProfileFirstName', payload);
+      },
+    },
+    lastName: {
+      get() {
+        return this.$store.state.profileLastName;
+      },
+      set(payload) {
+        this.$store.commit('setProfileLastName', payload);
+      },
+    },
+    username: {
+      get() {
+        return this.$store.state.profileUsername;
+      },
+      set(payload) {
+        this.$store.commit('setProfileUsername', payload);
+      },
+    },
+    email: {
+      get() {
+        return this.$store.state.profileEmail;
+      },
+    }
+  },
 }
 </script>
 
@@ -118,14 +156,15 @@ export default {
           display: block;
           padding-bottom: 6px;
         }
+
         input {
           width: 100%;
           border: none;
           background-color: #f2f7f6;
           padding: 8px;
           height: 50px;
-          @media (min-width: 900px) {
-          }
+
+          @media (min-width: 900px) {}
 
           &:focus {
             outline: none;
@@ -138,4 +177,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
