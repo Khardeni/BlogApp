@@ -11,12 +11,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    sampleBlogCards: [
-      { blogTitle: "blog card 1", blogCoverPhoto: "stock-1", blogDate: "May 1, 2025" },
-      { blogTitle: "blog card 2", blogCoverPhoto: "stock-2", blogDate: "May 1, 2025" },
-      { blogTitle: "blog card 3", blogCoverPhoto: "stock-3", blogDate: "May 1, 2025" },
-      { blogTitle: "blog card 4", blogCoverPhoto: "stock-4", blogDate: "May 1, 2025" },
-    ],
+    blogPosts: [],
+    postLoaded: null,
+    blogHTML: "Write your blog title here...",
+    blogTitle: "",
+    blogPhotoName: "",
+    blogPhotoFileURL: null,
+    blogPhotoPreview: null,
     editPost: null,
     user: null,
     profileEmail: null,
@@ -39,13 +40,13 @@ export default new Vuex.Store({
       state.profileFirstName = data.firstName;
       state.profileLastName = data.lastName;
       state.profileUsername = data.userName;
-    
-      
+
+
     },
     setProfileInitials(state) {
       state.profileinitials =
         state.profileFirstName.match(/(\b\S)?/g).join('') + state.profileLastName.match(/(\b\S)?/g).join('');
-        console.log("Profile initials set to:", state.profileinitials);
+      console.log("Profile initials set to:", state.profileinitials);
 
     },
     setProfileFirstName(state, payload) {
@@ -67,14 +68,14 @@ export default new Vuex.Store({
         const data = { ...doc.data(), id: doc.id };
         commit('setUser', data);
         commit('setProfileInitials');
-        
+
         console.log("User data fetched successfully:", data);
-        
+
       } else {
         console.error("No such document!");
       }
     },
-    async updateProfile({commit , state}){
+    async updateProfile({ commit, state }) {
       const dataBase = db.collection("users").doc(state.profileId);
       await dataBase.update({
         firstName: state.profileFirstName,
