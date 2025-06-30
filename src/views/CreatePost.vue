@@ -39,7 +39,7 @@ window.Quill = Quill;
 const ImageResize = require("quill-image-resize-module").default;
 Quill.register("modules/imageResize", ImageResize);
 export default {
-  name: "CreatePost",
+  name: "createpost",
   data() {
     return {
       file: null,

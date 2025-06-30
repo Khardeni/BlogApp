@@ -7,6 +7,12 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Profile from "../views/Profile.vue";
 import Admin from "../views/Admin.vue";
+import CreatePost from "../views/CreatePost.vue";
+import BlogPreview from "../views/BlogPreview.vue";
+import ViewBlog from "../views/ViewBlog.vue";
+import EditBlog from "../views/EditBlog.vue";
+
+import "firebase/auth";
 
 Vue.use(VueRouter);
 
@@ -19,11 +25,11 @@ const routes = [
       title: "Home",
     }
   },
-   {
+  {
     path: "/blogs",
     name: "blogs",
     component: Blogs,
-     meta: {
+    meta: {
       title: "Blogs",
     }
   },
@@ -31,7 +37,7 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
-     meta: {
+    meta: {
       title: "Login",
     }
   },
@@ -39,7 +45,7 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
-     meta: {
+    meta: {
       title: "Register",
     }
   },
@@ -47,7 +53,7 @@ const routes = [
     path: "/forgot-password",
     name: "ForgotPassword",
     component: ForgotPassword,
-     meta: {
+    meta: {
       title: "forgot password",
     }
   },
@@ -55,7 +61,7 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
-     meta: {
+    meta: {
       title: "Profile",
     }
   },
@@ -63,9 +69,44 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
-     meta: {
+    meta: {
       title: "Admin",
     }
+  },
+  {
+    path: "/create-post",
+    name: "createpost",
+    component: CreatePost,
+    meta: {
+      title: "Create Post",
+    },
+  },
+  {
+    path: "/post-preview",
+    name: "BlogPreview",
+    component: BlogPreview,
+    meta: {
+      title: "Preview Blog Post",
+     
+    },
+  },
+  {
+    path: "/view-blog/:blogid",
+    name: "ViewBlog",
+    component: ViewBlog,
+    meta: {
+      title: "View Blog Post",
+     
+    },
+  },
+  {
+    path: "/edit-blog/:blogid",
+    name: "EditBlog",
+    component: EditBlog,
+    meta: {
+      title: "Edit Blog Post",
+      
+    },
   },
 ];
 
@@ -76,7 +117,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} | Blog App`; 
+  document.title = `${to.meta.title} | Blog App`;
   next();
 });
 
